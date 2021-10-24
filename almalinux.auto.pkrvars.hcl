@@ -13,9 +13,9 @@ files_dir      = "./files"
 
 # OS vars
 iso_checksum   = "b4572a1bf791ed8e7469d6ab0beece1d1eacc5ab39bb8b8f4bf78111a20b5c23"
-iso_name       = "alma-8.4-x86_64-boot.iso"
+iso_name       = "AlmaLinux-8.4-x86_64-minimal.iso"
 kickstart_path = "anaconda-ks.cfg"
-template       = "AlmaLinux-8.4-x86_64-minimal.iso"
+template       = "AlmaLinux-8.4-x86_64"
 mirror         = "https://alma.mirror.ate.info"
 mirror_dir     = "8.4/isos/x86_64"
 
