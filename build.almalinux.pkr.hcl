@@ -8,6 +8,7 @@ build {
     start_retry_timeout = "15m"
     expect_disconnect   = true
     scripts             = [
+      "${var.scripts_dir}/network.sh",
       "${var.scripts_dir}/dnf.sh",
     ]
   }
@@ -22,16 +23,5 @@ build {
       "${var.scripts_dir}/puppet.sh",
       "${var.scripts_dir}/cloud-init.sh"
     ]
-  }
-  post-processor "checksum" {
-    checksum_types      = [
-      "sha256"
-    ]
-    keep_input_artifact = false
-    output              = "${var.build_dir}/almalinux.box.sha256"
-  }
-  post-processor "compress" {
-    output = "${var.build_dir}/almalinux.qcow2.tar.gz"
-    compression_level = 9
   }
 }

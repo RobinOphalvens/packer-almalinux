@@ -4,7 +4,7 @@
 source "qemu" "almalinux8" {
   boot_command     = [
     "<esc><wait>",
-    "linux inst.ks=http://{{.HTTPIP}}:{{.HTTPPort}}/${var.kickstart_path} ipv6.disable_ipv6=1",
+    "linux inst.ks=http://{{.HTTPIP}}:{{.HTTPPort}}/${var.kickstart_path}",
     "<enter>"
   ]
   boot_wait        = "10s"

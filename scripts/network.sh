@@ -34,14 +34,23 @@ error() {
         fi
 }
 
-# Ensure the server includes any necessary updates.
-retry dnf makecache
-retry dnf distro-sync -y
+# Setup
 
-# Install epel
-retry dnf install -y epel-release
+# Setup systemd-networkd
+# We later overwrite this with puppet
+retry mkdir -p /etc/systemd/network
+cat <<-EOF >> /etc/systemd/network/wired.network
+[Match]
+Name=en* eth*
 
-# The packages users expect on a sane system.
-retry dnf install -y vim net-tools tree curl wget htop iftop iotop tmux telnet unzip tar sed; error
+[Network]
+Address=2a01:4f9:6a:531c::2/64
+Gateway=fe80::1
+DNS=2606:4700:4700::1111
+DNS=2606:4700:4700::1001
+EOF
 
-retry dnf remove -y NetworkManager
+retry systemctl enable --now systemd-resolved
+retry ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+retry systemctl disable --now NetworkManager
+retry systemctl enable --now systemd-networkd
